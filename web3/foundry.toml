@@ -1,0 +1,7 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+script = "script"
+
+# Sepolia deployment: forge script script/Deploy.s.sol:DeployRewardNFT --rpc-url https://rpc.sepolia.org --broadcast --verify -vvvv

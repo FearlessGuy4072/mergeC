@@ -1,0 +1,116 @@
+/* Root container */
+.app-root {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: black;
+}
+
+/* ===== ANIMATED BACKGROUND (GIF) ===== */
+.menu-bg {
+  position: absolute;
+  inset: 0;
+  
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* ===== UI OVERLAY ===== */
+.menu-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Enable button interaction */
+.menu-overlay button {
+  pointer-events: auto;
+}
+
+/* ===== NEON TITLE ===== */
+.game-title {
+  font-size: 5rem;
+  font-weight: 900;
+  letter-spacing: 0.35rem;
+  color: #7df9ff;
+  text-shadow:
+    0 0 10px #00ffff,
+    0 0 30px #00ffff,
+    0 0 60px #00ffff;
+}
+
+/* ===== CYBER BUTTON ===== */
+.btn-cyber {
+  background: rgba(0, 0, 0, 0.75);
+  color: #00ffff;
+  border: 2px solid #00ffff;
+  padding: 14px 44px;
+  letter-spacing: 0.2rem;
+  box-shadow:
+    0 0 12px #00ffff,
+    inset 0 0 12px #00ffff;
+  transition: all 0.25s ease;
+}
+
+.btn-cyber:hover {
+  background: #001f2f;
+  color: #7df9ff;
+  box-shadow:
+    0 0 30px #00ffff,
+    inset 0 0 20px #00ffff;
+  transform: scale(1.06);
+}
+/* ===== START BUTTON WRAPPER ===== */
+.start-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Neon frame (border like previous button) */
+.start-btn-frame {
+  padding: 14px 28px;
+  border: 2px solid #00ffff;
+  border-radius: 6px;
+
+  box-shadow:
+    0 0 12px #00ffff,
+    inset 0 0 12px #00ffff;
+
+  transition: all 0.25s ease;
+}
+
+/* Button image */
+.start-btn-img {
+  width: min(50vw, 320px);
+  height: auto;
+  display: block;
+
+  filter:
+    drop-shadow(0 0 6px #00ffff)
+    drop-shadow(0 0 18px #00ffff);
+}
+
+/* Hover effect */
+.start-btn:hover .start-btn-frame {
+  box-shadow:
+    0 0 30px #00ffff,
+    inset 0 0 20px #00ffff;
+  transform: scale(1.05);
+}
+
+/* Click feedback */
+.start-btn:active .start-btn-frame {
+  transform: scale(0.95);
+}
+
+/* Keyboard focus */
+.start-btn:focus-visible {
+  outline: 2px solid #00ffff;
+  outline-offset: 6px;
+}

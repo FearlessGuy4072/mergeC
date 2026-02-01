@@ -1,0 +1,502 @@
+/* ========== GAME SCREEN (CITY VIEW) ========== */
+global button {
+  color: inherit;
+  font: inherit;
+}
+
+.game-screen {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #070812;
+  color: white;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+
+/* Background Image */
+.city-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  image-rendering: pixelated;
+  filter: saturate(1.15) contrast(1.05);
+  transform: scale(1.03);
+}
+
+/* Neon + scanline effects */
+.fx-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top, rgba(120, 80, 255, 0.25), transparent 55%),
+    radial-gradient(circle at bottom, rgba(0, 255, 200, 0.18), transparent 60%),
+    linear-gradient(transparent, rgba(0, 0, 0, 0.25));
+  pointer-events: none;
+}
+
+.fx-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 2px,
+    transparent 6px
+  );
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+}
+
+/* ========== TOP HUD ========== */
+.hud-top {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  z-index: 5;
+}
+
+.hud-title {
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.hud-sub {
+  margin-top: 6px;
+  opacity: 0.75;
+  font-size: 12px;
+}
+
+.hud-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.hud-chip {
+  padding: 12px 16px;
+  border-radius: 16px;
+
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid rgba(0, 255, 200, 0.35);
+
+  backdrop-filter: blur(10px);
+  min-width: 120px;
+
+  box-shadow: 0 0 25px rgba(0, 255, 200, 0.12);
+}
+
+
+.chip-label {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.chip-value {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.hud-btn {
+  padding: 10px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: white;
+  background: rgba(0, 255, 200, 0.12);
+  border: 1px solid rgba(0, 255, 200, 0.35);
+}
+
+/* ========== MAP LAYER ========== */
+.map-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+}
+
+/* Shop marker buttons */
+.shop-marker {
+  position: absolute;
+
+  /* ✅ Center the button exactly at left/top */
+  transform: translate(-50%, -50%);
+
+  min-width: 280px;
+  max-width: 340px;
+  padding: 18px;
+  border-radius: 18px;
+
+  cursor: pointer;
+  text-align: left;
+
+  /* ✅ Force visible text */
+  color: white;
+
+  /* ✅ Remove default button styling */
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.22);
+
+  backdrop-filter: blur(10px);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.shop-marker:hover {
+  transform: translate(-50%, -50%) translateY(-6px) scale(1.04);
+}
+
+
+/* Marker neon sign text */
+.marker-sign {
+  color: white;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+.marker-sub {
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.marker-sub {
+  margin-top: 6px;
+  opacity: 0.85;
+  font-size: 13px;
+}
+
+.shop-marker::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 200, 0.08),
+    rgba(160, 80, 255, 0.08)
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+
+/* Themes */
+.theme-cyan {
+  border-color: rgba(0, 255, 200, 0.55);
+  box-shadow: 0 0 30px rgba(0, 255, 200, 0.25);
+}
+
+.theme-pink {
+  border-color: rgba(255, 0, 200, 0.55);
+  box-shadow: 0 0 30px rgba(255, 0, 200, 0.25);
+}
+
+.theme-purple {
+  border-color: rgba(160, 80, 255, 0.55);
+  box-shadow: 0 0 30px rgba(160, 80, 255, 0.25);
+}
+
+/* ========== BOTTOM HUD ========== */
+.hud-bottom {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+}
+
+.hint {
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* ====== GLOBAL ====== */
+.hub-wrap {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, rgba(120, 80, 255, 0.25), transparent 45%),
+    radial-gradient(circle at bottom, rgba(0, 255, 200, 0.18), transparent 50%),
+    #070812;
+  color: white;
+  padding: 24px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+
+/* ====== HEADER ====== */
+.hub-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.hub-title {
+  font-size: 28px;
+  letter-spacing: 2px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.hub-subtitle {
+  opacity: 0.75;
+  margin-top: 6px;
+}
+
+.wallet-panel {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.wallet-chip {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 200, 0.35);
+  padding: 10px 12px;
+  border-radius: 12px;
+  min-width: 90px;
+}
+
+.wallet-chip .label {
+  font-size: 11px;
+  opacity: 0.7;
+  display: block;
+}
+.wallet-chip .value {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* ====== CITY GRID ====== */
+.city-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.shop-node {
+  text-align: left;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+
+.shop-node:hover {
+  transform: translateY(-3px);
+}
+
+.shop-sign {
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.shop-desc {
+  opacity: 0.7;
+  font-size: 13px;
+}
+
+.shop-enter {
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* Theme glow */
+.theme-cyan {
+  box-shadow: 0 0 25px rgba(0, 255, 200, 0.15);
+  border-color: rgba(0, 255, 200, 0.3);
+}
+.theme-pink {
+  box-shadow: 0 0 25px rgba(255, 0, 200, 0.13);
+  border-color: rgba(255, 0, 200, 0.28);
+}
+.theme-purple {
+  box-shadow: 0 0 25px rgba(160, 80, 255, 0.14);
+  border-color: rgba(160, 80, 255, 0.28);
+}
+
+/* ====== BUTTONS ====== */
+.btn-glow {
+  background: linear-gradient(90deg, rgba(0, 255, 200, 0.2), rgba(160, 80, 255, 0.2));
+  border: 1px solid rgba(0, 255, 200, 0.35);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ====== MODAL ====== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.modal {
+  width: min(950px, 100%);
+  border-radius: 18px;
+  padding: 18px;
+  background: rgba(10, 12, 22, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.modal-title {
+  margin: 0;
+  letter-spacing: 1px;
+}
+.modal-sub {
+  margin-top: 6px;
+  opacity: 0.7;
+}
+
+.btn-close {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  border-radius: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.modal-body {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 14px;
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.item-card {
+  text-align: left;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+}
+
+.item-card.active {
+  border-color: rgba(0, 255, 200, 0.5);
+  box-shadow: 0 0 18px rgba(0, 255, 200, 0.12);
+}
+
+.item-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.item-rarity {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.item-price {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.item-currency {
+  opacity: 0.7;
+}
+
+/* Preview panel */
+.preview-panel {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 14px;
+}
+
+.preview-title {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.preview-rarity {
+  opacity: 0.7;
+  margin-top: 6px;
+}
+
+.preview-price {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.preview-price .price {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.preview-price .currency {
+  opacity: 0.7;
+}
+
+.btn-buy {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 255, 200, 0.4);
+  background: rgba(0, 255, 200, 0.1);
+  color: white;
+  cursor: pointer;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.nft-hint {
+  margin-top: 12px;
+  font-size: 12px;
+  opacity: 0.75;
+}

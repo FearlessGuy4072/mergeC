@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "PixelFont";
+  src: url("/fonts/pixel.ttf");
+}
+
+body {
+  background: #05070d;
+}
+
+canvas {
+  image-rendering: pixelated;
+}
+
+/* Optional UI glow */
+.cyber-glow {
+  text-shadow:
+    0 0 6px #00ffd5,
+    0 0 12px rgba(0, 255, 213, 0.6);
+}
